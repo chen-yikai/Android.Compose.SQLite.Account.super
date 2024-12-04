@@ -77,11 +77,9 @@ fun SignIn(nav: NavHostController = rememberNavController()) {
             onClick = {
                 if (dbHandler.authUser(email = email.value, password = password.value)) {
                     Toast.makeText(context, "Login Successful", Toast.LENGTH_SHORT).show()
-                    if (rememberMe.value) {
-                        sharedPreferences.edit().putBoolean("rememberme", true)
-                            .putString("email", email.value)
-                            .putString("name", dbHandler.getUser(email = email.value)).apply()
-                    }
+                    sharedPreferences.edit().putBoolean("rememberme", rememberMe.value)
+                        .putString("email", email.value)
+                        .putString("name", dbHandler.getUser(email = email.value)).apply()
                     nav.navigate("home")
                 } else {
                     Toast.makeText(context, "Invalid Credentials", Toast.LENGTH_SHORT).show()
